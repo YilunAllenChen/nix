@@ -1,6 +1,6 @@
 # nix
 
 ```bash
-sudo apt install nix-bin
+curl -L https://nixos.org/nix/install | sh
 nix-shell
 ```
