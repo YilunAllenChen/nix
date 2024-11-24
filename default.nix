@@ -15,6 +15,8 @@ pkgs.mkShell {
     pkgs.fish
 	pkgs.curl
     pkgs.fzf
+	pkgs.wget
+	pkgs.rustup
     pkgs.lazygit
     pkgs.ripgrep
     pkgs.starship
