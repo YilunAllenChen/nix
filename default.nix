@@ -1,17 +1,25 @@
-{ pkgs ? import <nixpkgs> {} }:
+let
+  # Import the Neovim nightly overlay
+  neovimNightlyOverlay = import (builtins.fetchTarball {
+    url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+  });
 
+  # Apply the overlay to your package set
+  pkgs = import <nixpkgs> {
+    overlays = [ neovimNightlyOverlay ];
+  };
+in
 pkgs.mkShell {
   buildInputs = [
     pkgs.neovim
     pkgs.fish
+	pkgs.curl
     pkgs.fzf
     pkgs.lazygit
     pkgs.ripgrep
-    pkgs.rustup
     pkgs.starship
     pkgs.nodejs
     pkgs.git
-	pkgs.neovide
   ];
 
   shellHook = ''
@@ -20,11 +28,11 @@ pkgs.mkShell {
       git clone https://github.com/YilunAllenChen/nvim $HOME/.config/nvim
     fi
 
-	alias n="nvim"
+    alias n="nvim"
     alias cvim="nvim ~/.config/nvim"
-	alias eb="nvim ~/.config/fish/config.fish"
-	alias sb="source ~/.config/fish/config.fish"
+    alias eb="nvim ~/.config/fish/config.fish"
+    alias sb="source ~/.config/fish/config.fish"
 
-	fish
+    fish
   '';
 }
